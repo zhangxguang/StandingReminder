@@ -1,0 +1,391 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* StandingReminderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000001 /* StandingReminderApp.swift */; };
+		A10000000000000000000002 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000002 /* WorkState.swift */; };
+		A10000000000000000000003 /* WorkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000003 /* WorkSession.swift */; };
+		A10000000000000000000004 /* TimelineCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000004 /* TimelineCalculator.swift */; };
+		A10000000000000000000005 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000005 /* SessionController.swift */; };
+		A10000000000000000000006 /* StateActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000006 /* StateActionButton.swift */; };
+		A10000000000000000000007 /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000007 /* RecordView.swift */; };
+		A10000000000000000000008 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* RootView.swift */; };
+		A10000000000000000000009 /* DailyTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* DailyTimelineView.swift */; };
+		A1000000000000000000000A /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* HistoryView.swift */; };
+		A1000000000000000000000B /* SessionEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000B /* SessionEditSheet.swift */; };
+		A1000000000000000000000C /* MenuBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000C /* MenuBarContent.swift */; };
+		A1000000000000000000000D /* StandingReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000D /* StandingReminderTests.swift */; };
+		A1000000000000000000000E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B10000000000000000000010 /* XCTest.framework */; };
+		A1000000000000000000000F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000011 /* Assets.xcassets */; };
+		A10000000000000000000010 /* ExcelExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000012 /* ExcelExporter.swift */; };
+		A10000000000000000000011 /* SittingReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000013 /* SittingReminderService.swift */; };
+		A10000000000000000000012 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* SettingsView.swift */; };
+		A10000000000000000000013 /* DailyHourGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* DailyHourGridView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C10000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E10000000000000000000001;
+			remoteInfo = StandingReminder;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B10000000000000000000001 /* StandingReminderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingReminderApp.swift; sourceTree = "<group>"; };
+		B10000000000000000000002 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
+		B10000000000000000000003 /* WorkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSession.swift; sourceTree = "<group>"; };
+		B10000000000000000000004 /* TimelineCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCalculator.swift; sourceTree = "<group>"; };
+		B10000000000000000000005 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
+		B10000000000000000000006 /* StateActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateActionButton.swift; sourceTree = "<group>"; };
+		B10000000000000000000007 /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
+		B10000000000000000000008 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		B10000000000000000000009 /* DailyTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTimelineView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000A /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000B /* SessionEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEditSheet.swift; sourceTree = "<group>"; };
+		B1000000000000000000000C /* MenuBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContent.swift; sourceTree = "<group>"; };
+		B1000000000000000000000D /* StandingReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingReminderTests.swift; sourceTree = "<group>"; };
+		B1000000000000000000000E /* StandingReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandingReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1000000000000000000000F /* StandingReminderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StandingReminderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10000000000000000000010 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
+		B10000000000000000000011 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10000000000000000000012 /* ExcelExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcelExporter.swift; sourceTree = "<group>"; };
+		B10000000000000000000013 /* SittingReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SittingReminderService.swift; sourceTree = "<group>"; };
+		B10000000000000000000014 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B10000000000000000000015 /* DailyHourGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyHourGridView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F10000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000E /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G10000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				G10000000000000000000002 /* StandingReminder */,
+				G10000000000000000000008 /* StandingReminderTests */,
+				G10000000000000000000009 /* Frameworks */,
+				G1000000000000000000000A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		G10000000000000000000002 /* StandingReminder */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000011 /* Assets.xcassets */,
+				G10000000000000000000003 /* App */,
+				G10000000000000000000004 /* Models */,
+				G10000000000000000000005 /* Services */,
+				G10000000000000000000006 /* Views */,
+			);
+			path = StandingReminder;
+			sourceTree = "<group>";
+		};
+		G10000000000000000000003 /* App */ = {
+			isa = PBXGroup;
+			children = (B10000000000000000000001 /* StandingReminderApp.swift */,);
+			path = App;
+			sourceTree = "<group>";
+		};
+		G10000000000000000000004 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000002 /* WorkState.swift */,
+				B10000000000000000000003 /* WorkSession.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		G10000000000000000000005 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000004 /* TimelineCalculator.swift */,
+				B10000000000000000000005 /* SessionController.swift */,
+				B10000000000000000000012 /* ExcelExporter.swift */,
+				B10000000000000000000013 /* SittingReminderService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		G10000000000000000000006 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000007 /* RecordView.swift */,
+				B10000000000000000000008 /* RootView.swift */,
+				B1000000000000000000000C /* MenuBarContent.swift */,
+				B10000000000000000000014 /* SettingsView.swift */,
+				G10000000000000000000007 /* History */,
+				G1000000000000000000000B /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		G10000000000000000000007 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000015 /* DailyHourGridView.swift */,
+				B10000000000000000000009 /* DailyTimelineView.swift */,
+				B1000000000000000000000A /* HistoryView.swift */,
+				B1000000000000000000000B /* SessionEditSheet.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		G1000000000000000000000B /* Components */ = {
+			isa = PBXGroup;
+			children = (B10000000000000000000006 /* StateActionButton.swift */,);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		G10000000000000000000008 /* StandingReminderTests */ = {
+			isa = PBXGroup;
+			children = (B1000000000000000000000D /* StandingReminderTests.swift */,);
+			path = StandingReminderTests;
+			sourceTree = "<group>";
+		};
+		G10000000000000000000009 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (B10000000000000000000010 /* XCTest.framework */,);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		G1000000000000000000000A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000000E /* StandingReminder.app */,
+				B1000000000000000000000F /* StandingReminderTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E10000000000000000000001 /* StandingReminder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = H10000000000000000000002 /* Build configuration list for PBXNativeTarget "StandingReminder" */;
+			buildPhases = (
+				J10000000000000000000001 /* Sources */,
+				F10000000000000000000001 /* Frameworks */,
+				K10000000000000000000001 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = StandingReminder;
+			productName = StandingReminder;
+			productReference = B1000000000000000000000E /* StandingReminder.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E10000000000000000000002 /* StandingReminderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = H10000000000000000000003 /* Build configuration list for PBXNativeTarget "StandingReminderTests" */;
+			buildPhases = (
+				J10000000000000000000002 /* Sources */,
+				F10000000000000000000002 /* Frameworks */,
+				K10000000000000000000002 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = (L10000000000000000000001 /* PBXTargetDependency */,);
+			name = StandingReminderTests;
+			productName = StandingReminderTests;
+			productReference = B1000000000000000000000F /* StandingReminderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D10000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					E10000000000000000000001 = {CreatedOnToolsVersion = 26.6;};
+					E10000000000000000000002 = {CreatedOnToolsVersion = 26.6; TestTargetID = E10000000000000000000001;};
+				};
+			};
+			buildConfigurationList = H10000000000000000000001 /* Build configuration list for PBXProject "StandingReminder" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = zh-Hans;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base, "zh-Hans");
+			mainGroup = G10000000000000000000001;
+			productRefGroup = G1000000000000000000000A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E10000000000000000000001 /* StandingReminder */,
+				E10000000000000000000002 /* StandingReminderTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		K10000000000000000000001 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A1000000000000000000000F /* Assets.xcassets in Resources */,); runOnlyForDeploymentPostprocessing = 0;};
+		K10000000000000000000002 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		J10000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000001 /* StandingReminderApp.swift in Sources */,
+				A10000000000000000000002 /* WorkState.swift in Sources */,
+				A10000000000000000000003 /* WorkSession.swift in Sources */,
+				A10000000000000000000004 /* TimelineCalculator.swift in Sources */,
+				A10000000000000000000005 /* SessionController.swift in Sources */,
+				A10000000000000000000006 /* StateActionButton.swift in Sources */,
+				A10000000000000000000007 /* RecordView.swift in Sources */,
+				A10000000000000000000008 /* RootView.swift in Sources */,
+				A10000000000000000000009 /* DailyTimelineView.swift in Sources */,
+				A1000000000000000000000A /* HistoryView.swift in Sources */,
+				A1000000000000000000000B /* SessionEditSheet.swift in Sources */,
+				A1000000000000000000000C /* MenuBarContent.swift in Sources */,
+				A10000000000000000000010 /* ExcelExporter.swift in Sources */,
+				A10000000000000000000011 /* SittingReminderService.swift in Sources */,
+				A10000000000000000000012 /* SettingsView.swift in Sources */,
+				A10000000000000000000013 /* DailyHourGridView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		J10000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A1000000000000000000000D /* StandingReminderTests.swift in Sources */,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		L10000000000000000000001 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = E10000000000000000000001 /* StandingReminder */; targetProxy = C10000000000000000000001 /* PBXContainerItemProxy */;};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		M10000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		M10000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		M10000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = StandingReminder;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zxg.StandingReminder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		M10000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = StandingReminder;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zxg.StandingReminder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		M10000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zxg.StandingReminderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StandingReminder.app/Contents/MacOS/StandingReminder";
+			};
+			name = Debug;
+		};
+		M10000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zxg.StandingReminderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StandingReminder.app/Contents/MacOS/StandingReminder";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		H10000000000000000000001 /* Build configuration list for PBXProject "StandingReminder" */ = {isa = XCConfigurationList; buildConfigurations = (M10000000000000000000001 /* Debug */, M10000000000000000000002 /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+		H10000000000000000000002 /* Build configuration list for PBXNativeTarget "StandingReminder" */ = {isa = XCConfigurationList; buildConfigurations = (M10000000000000000000003 /* Debug */, M10000000000000000000004 /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+		H10000000000000000000003 /* Build configuration list for PBXNativeTarget "StandingReminderTests" */ = {isa = XCConfigurationList; buildConfigurations = (M10000000000000000000005 /* Debug */, M10000000000000000000006 /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+/* End XCConfigurationList section */
+	};
+	rootObject = D10000000000000000000001 /* Project object */;
+}
