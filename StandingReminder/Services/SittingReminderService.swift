@@ -8,7 +8,46 @@ protocol ReminderNotificationCenter: AnyObject {
     func removePendingNotificationRequests(withIdentifiers identifiers: [String])
 }
 
-extension UNUserNotificationCenter: ReminderNotificationCenter {}
+@MainActor
+private final class SystemReminderNotificationCenter: ReminderNotificationCenter {
+    private let notificationCenter: UNUserNotificationCenter
+
+    init(notificationCenter: UNUserNotificationCenter = .current()) {
+        self.notificationCenter = notificationCenter
+    }
+
+    func requestAuthorization(options: UNAuthorizationOptions) async throws -> Bool {
+        try await withCheckedThrowingContinuation { continuation in
+            notificationCenter.requestAuthorization(options: options) { granted, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: granted)
+                }
+            }
+        }
+    }
+
+    func add(_ request: UNNotificationRequest) async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            notificationCenter.add(request) { error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume()
+                }
+            }
+        }
+    }
+
+    func removePendingNotificationRequests(withIdentifiers identifiers: [String]) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
+
+    func setDelegate(_ delegate: UNUserNotificationCenterDelegate) {
+        notificationCenter.delegate = delegate
+    }
+}
 
 private final class ReminderPresentationDelegate: NSObject, UNUserNotificationCenterDelegate,
     @unchecked Sendable
@@ -61,7 +100,7 @@ final class SittingReminderService: ObservableObject {
 
     init(
         defaults: UserDefaults = .standard,
-        notificationCenter: ReminderNotificationCenter = UNUserNotificationCenter.current()
+        notificationCenter: ReminderNotificationCenter = SystemReminderNotificationCenter()
     ) {
         self.defaults = defaults
         self.notificationCenter = notificationCenter
@@ -75,8 +114,8 @@ final class SittingReminderService: ObservableObject {
         let savedMinutes = defaults.object(forKey: Self.minutesKey) as? Int
         self.minutes = Self.clampedMinutes(savedMinutes ?? Self.defaultMinutes)
 
-        if let systemNotificationCenter = notificationCenter as? UNUserNotificationCenter {
-            systemNotificationCenter.delegate = presentationDelegate
+        if let systemNotificationCenter = notificationCenter as? SystemReminderNotificationCenter {
+            systemNotificationCenter.setDelegate(presentationDelegate)
         }
     }
 
