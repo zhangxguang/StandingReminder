@@ -7,6 +7,7 @@ struct StandingReminderApp: App {
     private let modelContainer: ModelContainer
     @StateObject private var controller: SessionController
     @StateObject private var reminderService: SittingReminderService
+    @StateObject private var updateService: UpdateService
 
     init() {
         let storage = Self.makeModelContainer()
@@ -14,6 +15,7 @@ struct StandingReminderApp: App {
 
         let reminder = SittingReminderService()
         _reminderService = StateObject(wrappedValue: reminder)
+        _updateService = StateObject(wrappedValue: UpdateService())
         _controller = StateObject(
             wrappedValue: SessionController(
                 context: storage.container.mainContext,
@@ -27,6 +29,21 @@ struct StandingReminderApp: App {
         container: ModelContainer,
         errorMessage: String?
     ) {
+        #if DEBUG
+        if isRunningTests {
+            do {
+                let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+                let container = try ModelContainer(
+                    for: WorkSession.self,
+                    configurations: configuration
+                )
+                return (container, nil)
+            } catch {
+                fatalError("测试数据库无法启动：\(error.localizedDescription)")
+            }
+        }
+        #endif
+
         do {
             let dataDirectory = try dataDirectory()
             try FileManager.default.createDirectory(
@@ -57,6 +74,13 @@ struct StandingReminderApp: App {
         }
     }
 
+    private static var isRunningTests: Bool {
+        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+            || ProcessInfo.processInfo.environment["XCTestBundlePath"] != nil
+            || ProcessInfo.processInfo.environment["XCTestSessionIdentifier"] != nil
+            || NSClassFromString("XCTestCase") != nil
+    }
+
     private static func dataDirectory() throws -> URL {
         #if DEBUG
         if let testingPath = ProcessInfo.processInfo.environment["STANDING_REMINDER_TEST_DATA_DIRECTORY"],
@@ -82,15 +106,26 @@ struct StandingReminderApp: App {
             RootView()
                 .environmentObject(controller)
                 .environmentObject(reminderService)
+                .environmentObject(updateService)
                 .modelContainer(modelContainer)
         }
         .defaultSize(width: 760, height: 620)
         .windowResizability(.contentMinSize)
+        .commands {
+            CommandGroup(after: .appInfo) {
+                Button("检查更新…") {
+                    updateService.checkForUpdates()
+                }
+                .disabled(!updateService.canCheckForUpdates)
+                .keyboardShortcut("u", modifiers: [.command])
+            }
+        }
 
         MenuBarExtra {
             MenuBarContent()
                 .environmentObject(controller)
                 .environmentObject(reminderService)
+                .environmentObject(updateService)
                 .modelContainer(modelContainer)
         } label: {
             MenuBarLabel()

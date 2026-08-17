@@ -68,6 +68,7 @@ private struct ActiveMenuBarLabel: View {
 struct MenuBarContent: View {
     @Environment(\.openWindow) private var openWindow
     @EnvironmentObject private var controller: SessionController
+    @EnvironmentObject private var updateService: UpdateService
 
     var body: some View {
         if let activeSession = controller.activeSession {
@@ -117,6 +118,15 @@ struct MenuBarContent: View {
         } label: {
             Label("打开设置页", systemImage: "gearshape")
         }
+
+        Divider()
+
+        Button {
+            updateService.checkForUpdates()
+        } label: {
+            Label("检查更新…", systemImage: "arrow.triangle.2.circlepath")
+        }
+        .disabled(!updateService.canCheckForUpdates)
 
         Divider()
 

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject private var reminderService: SittingReminderService
+    @EnvironmentObject private var updateService: UpdateService
 
     var body: some View {
         ScrollView {
@@ -51,6 +52,36 @@ struct SettingsView: View {
                             .font(.callout)
                             .foregroundStyle(.orange)
                     }
+                }
+                .padding(24)
+                .background(.quaternary.opacity(0.45), in: RoundedRectangle(cornerRadius: 18))
+
+                VStack(alignment: .leading, spacing: 18) {
+                    HStack(spacing: 14) {
+                        Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                            .font(.system(size: 30))
+                            .foregroundStyle(.blue)
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("应用更新")
+                                .font(.title3.weight(.semibold))
+                            Text("当前版本 \(updateService.versionDescription)")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+
+                        Spacer()
+
+                        Button("检查更新…") {
+                            updateService.checkForUpdates()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(!updateService.canCheckForUpdates)
+                    }
+
+                    Text("正式安装版会通过 GitHub Releases 安全检查更新，下载内容由 Sparkle 签名验证。")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
                 }
                 .padding(24)
                 .background(.quaternary.opacity(0.45), in: RoundedRectangle(cornerRadius: 18))

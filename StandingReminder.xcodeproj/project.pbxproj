@@ -26,6 +26,8 @@
 		A10000000000000000000011 /* SittingReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000013 /* SittingReminderService.swift */; };
 		A10000000000000000000012 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* SettingsView.swift */; };
 		A10000000000000000000013 /* DailyHourGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* DailyHourGridView.swift */; };
+		A10000000000000000000014 /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* UpdateService.swift */; };
+		A10000000000000000000015 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = P10000000000000000000001 /* Sparkle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 		B10000000000000000000013 /* SittingReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SittingReminderService.swift; sourceTree = "<group>"; };
 		B10000000000000000000014 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B10000000000000000000015 /* DailyHourGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyHourGridView.swift; sourceTree = "<group>"; };
+		B10000000000000000000016 /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000000000000000000015 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +129,7 @@
 				B10000000000000000000005 /* SessionController.swift */,
 				B10000000000000000000012 /* ExcelExporter.swift */,
 				B10000000000000000000013 /* SittingReminderService.swift */,
+				B10000000000000000000016 /* UpdateService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -194,6 +199,9 @@
 			buildRules = ();
 			dependencies = ();
 			name = StandingReminder;
+			packageProductDependencies = (
+				P10000000000000000000001 /* Sparkle */,
+			);
 			productName = StandingReminder;
 			productReference = B1000000000000000000000E /* StandingReminder.app */;
 			productType = "com.apple.product-type.application";
@@ -233,6 +241,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (en, Base, "zh-Hans");
 			mainGroup = G10000000000000000000001;
+			packageReferences = (
+				N10000000000000000000001 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			productRefGroup = G1000000000000000000000A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -269,6 +280,7 @@
 				A10000000000000000000011 /* SittingReminderService.swift in Sources */,
 				A10000000000000000000012 /* SettingsView.swift in Sources */,
 				A10000000000000000000013 /* DailyHourGridView.swift in Sources */,
+				A10000000000000000000014 /* UpdateService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,12 +339,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 2NW8BV74J4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StandingReminder/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = StandingReminder;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				MARKETING_VERSION = 1.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zxg.StandingReminder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -344,11 +362,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 2NW8BV74J4;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StandingReminder/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = StandingReminder;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				MARKETING_VERSION = 1.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.3.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zxg.StandingReminder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -386,6 +412,25 @@
 		H10000000000000000000002 /* Build configuration list for PBXNativeTarget "StandingReminder" */ = {isa = XCConfigurationList; buildConfigurations = (M10000000000000000000003 /* Debug */, M10000000000000000000004 /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
 		H10000000000000000000003 /* Build configuration list for PBXNativeTarget "StandingReminderTests" */ = {isa = XCConfigurationList; buildConfigurations = (M10000000000000000000005 /* Debug */, M10000000000000000000006 /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		N10000000000000000000001 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 2.9.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		P10000000000000000000001 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = N10000000000000000000001 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D10000000000000000000001 /* Project object */;
 }

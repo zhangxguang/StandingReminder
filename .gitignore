@@ -13,6 +13,14 @@ build/
 *.dSYM.zip
 *.dSYM
 dist/
+release/
+
+# Signing and release credentials
+*.p8
+*.p12
+*.cer
+*.provisionprofile
+.release-secrets/
 
 # Playgrounds
 timeline.xctimeline

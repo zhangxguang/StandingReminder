@@ -17,6 +17,8 @@ Mac 进入睡眠、锁屏、切换用户或关机时，当前状态会自动切�
 
 设置页可以开启或关闭“坐姿超时提醒”，提醒时长默认为 30 分钟，可在 1–240 分钟之间调整。连续坐姿达到设定时长后，应用会通过 macOS 系统通知提示切换为站立办公或休息；第一次使用时需要允许通知权限。
 
+正式安装版通过 Sparkle 从公开 GitHub Releases 检查更新。可以从应用菜单、菜单栏或设置页点击“检查更新…”，更新包会经过 EdDSA 签名验证后再安装。
+
 ## 测试
 
 ```sh
@@ -24,5 +26,25 @@ xcodebuild test \
   -project StandingReminder.xcodeproj \
   -scheme StandingReminder \
   -derivedDataPath DerivedData \
-  CODE_SIGNING_ALLOWED=NO
+  CODE_SIGN_STYLE=Manual \
+  CODE_SIGN_IDENTITY=- \
+  DEVELOPMENT_TEAM=
 ```
+
+## 发布
+
+推送与应用版本一致的 `v*` 标签后，GitHub Actions 会构建 Universal macOS 应用，使用 Developer ID 签名并完成 Apple 公证，随后发布 DMG、Sparkle 更新 ZIP、`appcast.xml` 和 SHA-256 校验文件。
+
+仓库 Actions Secrets 需要配置：
+
+- `MAC_CERTIFICATE_P12`
+- `MAC_CERTIFICATE_PASSWORD`
+- `APPLE_API_KEY_P8`
+- `APPLE_API_KEY_ID`
+- `APPLE_API_ISSUER`
+- `APPLE_TEAM_ID`
+- `SPARKLE_EDDSA_PRIVATE_KEY`
+
+版本发布时必须同时递增 `MARKETING_VERSION` 和整数形式的 `CURRENT_PROJECT_VERSION`。签名证书、Apple API Key 和 Sparkle 私钥不得提交到 Git。
+
+隐私处理方式见 [PRIVACY.md](PRIVACY.md)。
