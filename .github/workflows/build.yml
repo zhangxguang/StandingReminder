@@ -294,7 +294,12 @@ jobs:
           plutil -extract SUPublicEDKey raw "${APP_PATH}/Contents/Info.plist" | \
             grep -Fq '0mXDhY+JGMThFqmvkupbdeqyF3su5nsRZ5i9NUCh+7o='
           test -s "${RELEASE_DIR}/appcast.xml"
-          shasum -a 256 "${UPDATE_ZIP}" "${RELEASE_DMG}" > "${RELEASE_DIR}/SHA256SUMS.txt"
+          (
+            cd "${RELEASE_DIR}"
+            shasum -a 256 \
+              "$(basename "${UPDATE_ZIP}")" \
+              "$(basename "${RELEASE_DMG}")" > SHA256SUMS.txt
+          )
 
       - name: Publish GitHub Release
         shell: bash
