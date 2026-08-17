@@ -6,16 +6,31 @@ import XCTest
 @MainActor
 private final class FakeReminderNotificationCenter: ReminderNotificationCenter {
     var authorizationGranted = true
+    var deliversCallbacksOnBackgroundQueue = false
     private(set) var requests: [UNNotificationRequest] = []
     private(set) var removedIdentifiers: [String] = []
 
-    func requestAuthorization(options: UNAuthorizationOptions) async throws -> Bool {
-        authorizationGranted
+    func requestAuthorization(
+        options: UNAuthorizationOptions,
+        completion: @escaping @Sendable (Bool, String?) -> Void
+    ) {
+        let granted = authorizationGranted
+        if deliversCallbacksOnBackgroundQueue {
+            DispatchQueue.global().async {
+                completion(granted, nil)
+            }
+        } else {
+            completion(granted, nil)
+        }
     }
 
-    func add(_ request: UNNotificationRequest) async throws {
+    func add(
+        _ request: UNNotificationRequest,
+        completion: @escaping @Sendable (String?) -> Void
+    ) {
         requests.removeAll { $0.identifier == request.identifier }
         requests.append(request)
+        completion(nil)
     }
 
     func removePendingNotificationRequests(withIdentifiers identifiers: [String]) {
@@ -641,6 +656,29 @@ final class StandingReminderTests: XCTestCase {
         )
         XCTAssertEqual(trigger.timeInterval, 45 * 60, accuracy: 0.1)
         XCTAssertEqual(defaults.integer(forKey: "sittingReminderMinutes"), 45)
+    }
+
+    func testSittingReminderHandlesAuthorizationCallbackFromBackgroundQueue() async throws {
+        let suiteName = "SittingReminderTests-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suiteName)!
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        let notificationCenter = FakeReminderNotificationCenter()
+        notificationCenter.deliversCallbacksOnBackgroundQueue = true
+        let service = SittingReminderService(
+            defaults: defaults,
+            notificationCenter: notificationCenter
+        )
+        let start = Date(timeIntervalSince1970: 70_000)
+
+        service.activeSessionDidChange(
+            to: WorkSession(state: .sitting, startAt: start),
+            now: start
+        )
+        await waitForMainActorTasks { !notificationCenter.requests.isEmpty }
+
+        let request = try XCTUnwrap(notificationCenter.requests.first)
+        XCTAssertEqual(request.identifier, "sitting-reminder")
+        XCTAssertNil(service.notificationStatusText)
     }
 
     private func waitForMainActorTasks(

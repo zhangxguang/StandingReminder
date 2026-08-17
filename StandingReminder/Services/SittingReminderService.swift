@@ -3,8 +3,14 @@ import UserNotifications
 
 @MainActor
 protocol ReminderNotificationCenter: AnyObject {
-    func requestAuthorization(options: UNAuthorizationOptions) async throws -> Bool
-    func add(_ request: UNNotificationRequest) async throws
+    func requestAuthorization(
+        options: UNAuthorizationOptions,
+        completion: @escaping @Sendable (_ granted: Bool, _ errorMessage: String?) -> Void
+    )
+    func add(
+        _ request: UNNotificationRequest,
+        completion: @escaping @Sendable (_ errorMessage: String?) -> Void
+    )
     func removePendingNotificationRequests(withIdentifiers identifiers: [String])
 }
 
@@ -16,28 +22,27 @@ private final class SystemReminderNotificationCenter: ReminderNotificationCenter
         self.notificationCenter = notificationCenter
     }
 
-    func requestAuthorization(options: UNAuthorizationOptions) async throws -> Bool {
-        try await withCheckedThrowingContinuation { continuation in
-            notificationCenter.requestAuthorization(options: options) { granted, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(returning: granted)
-                }
-            }
+    func requestAuthorization(
+        options: UNAuthorizationOptions,
+        completion: @escaping @Sendable (Bool, String?) -> Void
+    ) {
+        let callback: @Sendable (Bool, Error?) -> Void = { granted, error in
+            completion(granted, error?.localizedDescription)
         }
+        notificationCenter.requestAuthorization(
+            options: options,
+            completionHandler: callback
+        )
     }
 
-    func add(_ request: UNNotificationRequest) async throws {
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            notificationCenter.add(request) { error in
-                if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume()
-                }
-            }
+    func add(
+        _ request: UNNotificationRequest,
+        completion: @escaping @Sendable (String?) -> Void
+    ) {
+        let callback: @Sendable (Error?) -> Void = { error in
+            completion(error?.localizedDescription)
         }
+        notificationCenter.add(request, withCompletionHandler: callback)
     }
 
     func removePendingNotificationRequests(withIdentifiers identifiers: [String]) {
@@ -160,14 +165,12 @@ final class SittingReminderService: ObservableObject {
         guard scheduledDeadline.map({ now < $0 }) ?? true else { return }
 
         let configuredMinutes = minutes
-        Task {
-            await scheduleReminder(
-                startAt: activeSittingStart,
-                now: now,
-                minutes: configuredMinutes,
-                revision: revision
-            )
-        }
+        scheduleReminder(
+            startAt: activeSittingStart,
+            now: now,
+            minutes: configuredMinutes,
+            revision: revision
+        )
     }
 
     private func scheduleReminder(
@@ -175,51 +178,97 @@ final class SittingReminderService: ObservableObject {
         now: Date,
         minutes: Int,
         revision: Int
-    ) async {
-        do {
-            let authorized = try await notificationCenter.requestAuthorization(options: [.alert, .sound])
-            guard schedulingRevision == revision,
-                  isEnabled,
-                  activeSittingStart == startAt,
-                  self.minutes == minutes
-            else { return }
-
-            guard authorized else {
-                notificationStatusText = "系统通知权限未开启，请在“系统设置 → 通知”中允许 StandingReminder 通知。"
-                return
+    ) {
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) { [weak self] authorized, errorMessage in
+            Task { @MainActor [weak self] in
+                self?.authorizationDidComplete(
+                    authorized: authorized,
+                    errorMessage: errorMessage,
+                    startAt: startAt,
+                    now: now,
+                    minutes: minutes,
+                    revision: revision
+                )
             }
+        }
+    }
 
-            notificationStatusText = nil
-            let content = UNMutableNotificationContent()
-            content.title = "该切换状态了"
-            content.body = "你已经连续坐姿办公 \(minutes) 分钟，建议站起来办公或休息一下。"
-            content.sound = .default
+    private func authorizationDidComplete(
+        authorized: Bool,
+        errorMessage: String?,
+        startAt: Date,
+        now: Date,
+        minutes: Int,
+        revision: Int
+    ) {
+        guard schedulingRevision == revision else { return }
 
-            let remainingInterval = Self.remainingInterval(
-                startAt: startAt,
-                now: now,
-                minutes: minutes
-            )
-            let trigger = UNTimeIntervalNotificationTrigger(
-                timeInterval: remainingInterval,
-                repeats: false
-            )
-            let request = UNNotificationRequest(
-                identifier: Self.requestIdentifier,
-                content: content,
-                trigger: trigger
-            )
-            try await notificationCenter.add(request)
+        if let errorMessage {
+            notificationStatusText = "无法安排提醒：\(errorMessage)"
+            return
+        }
 
-            if schedulingRevision == revision, isEnabled, activeSittingStart == startAt {
-                scheduledDeadline = now.addingTimeInterval(remainingInterval)
-            } else {
-                cancelPendingReminder()
+        guard isEnabled,
+              activeSittingStart == startAt,
+              self.minutes == minutes
+        else { return }
+
+        guard authorized else {
+            notificationStatusText = "系统通知权限未开启，请在“系统设置 → 通知”中允许 StandingReminder 通知。"
+            return
+        }
+
+        notificationStatusText = nil
+        let content = UNMutableNotificationContent()
+        content.title = "该切换状态了"
+        content.body = "你已经连续坐姿办公 \(minutes) 分钟，建议站起来办公或休息一下。"
+        content.sound = .default
+
+        let remainingInterval = Self.remainingInterval(
+            startAt: startAt,
+            now: now,
+            minutes: minutes
+        )
+        let trigger = UNTimeIntervalNotificationTrigger(
+            timeInterval: remainingInterval,
+            repeats: false
+        )
+        let request = UNNotificationRequest(
+            identifier: Self.requestIdentifier,
+            content: content,
+            trigger: trigger
+        )
+        notificationCenter.add(request) { [weak self] errorMessage in
+            Task { @MainActor [weak self] in
+                self?.notificationRequestDidComplete(
+                    errorMessage: errorMessage,
+                    startAt: startAt,
+                    now: now,
+                    remainingInterval: remainingInterval,
+                    revision: revision
+                )
             }
-        } catch {
-            if schedulingRevision == revision {
-                notificationStatusText = "无法安排提醒：\(error.localizedDescription)"
-            }
+        }
+    }
+
+    private func notificationRequestDidComplete(
+        errorMessage: String?,
+        startAt: Date,
+        now: Date,
+        remainingInterval: TimeInterval,
+        revision: Int
+    ) {
+        guard schedulingRevision == revision else { return }
+
+        if let errorMessage {
+            notificationStatusText = "无法安排提醒：\(errorMessage)"
+            return
+        }
+
+        if isEnabled, activeSittingStart == startAt {
+            scheduledDeadline = now.addingTimeInterval(remainingInterval)
+        } else {
+            cancelPendingReminder()
         }
     }
 
